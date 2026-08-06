@@ -1,0 +1,72 @@
+{
+  "_comment": "Single source of truth for the daily-options-trader skill. Edit this file to change behavior. Set enabled=false to pause all autonomous trading without deleting the schedule.",
+  "enabled": true,
+  "account_number": "596067660",
+  "account_nickname": "Agentic",
+  "required_agentic_allowed": true,
+  "required_option_level": ["option_level_2", "option_level_3"],
+
+  "risk_limits": {
+    "max_notional_per_trade_usd": 500,
+    "max_new_trades_per_day": 5,
+    "max_position_pct_of_account": 0.35,
+    "halt_new_trades_below_account_value_usd": 500
+  },
+
+  "instrument_scope": {
+    "asset_classes": ["equity_options"],
+    "option_strategies_allowed": ["long_call"],
+    "notes": "Single-leg long calls only. No puts, no spreads, no covered calls, no cash-secured puts, no equities, no crypto."
+  },
+
+  "universe": {
+    "mode": "static_curated_large_cap",
+    "description": "Highly liquid, optionable large-cap US equities. Re-validated for tradability each run via get_equity_tradability; never assumed static.",
+    "tickers": [
+      "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "AVGO",
+      "JPM", "V", "MA", "UNH", "HD", "COST", "XOM", "WMT",
+      "LLY", "JNJ", "PG", "NFLX", "AMD", "CRM", "ADBE", "ORCL",
+      "BAC", "KO", "PEP", "DIS", "QCOM"
+    ]
+  },
+
+  "entry": {
+    "expiration_dte_min": 14,
+    "expiration_dte_max": 45,
+    "expiration_dte_target": 28,
+    "strike_selection": {
+      "method": "percent_out_of_the_money",
+      "target_pct_otm": 5,
+      "acceptable_pct_otm_range": [2, 10],
+      "notes": "If the option chain response exposes delta, prefer picking the strike closest to delta ~0.35 instead and use %OTM only as a fallback/sanity check."
+    },
+    "signal": {
+      "type": "trend_momentum",
+      "rules": [
+        "20-day SMA > 50-day SMA (uptrend)",
+        "last price > 20-day SMA (price confirms trend)",
+        "RSI(14) between 50 and 70 (momentum without being overbought)"
+      ],
+      "rank_by": "RSI(14) descending among names passing all three rules",
+      "tie_break": "narrower option bid-ask spread (% of mid) wins"
+    },
+    "liquidity_filters": {
+      "min_option_open_interest": 100,
+      "max_bid_ask_spread_pct_of_mid": 10
+    }
+  },
+
+  "exit": {
+    "profit_target_pct": 75,
+    "stop_loss_pct": -50,
+    "time_stop_dte": 7,
+    "notes": "Exit checks and executions run every day regardless of the daily halt or the new-trade cap — managing existing risk down is never blocked."
+  },
+
+  "order_execution": {
+    "order_type": "limit",
+    "buy_limit_rule": "at the current ask; if spread > liquidity filter, use the midpoint instead and skip if still not marketable",
+    "sell_limit_rule": "at the current bid; if spread > liquidity filter, use the midpoint instead",
+    "time_in_force": "gfd"
+  }
+}
