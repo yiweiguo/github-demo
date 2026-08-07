@@ -7,7 +7,7 @@
   "required_option_level": ["option_level_2", "option_level_3"],
 
   "risk_limits": {
-    "max_notional_per_trade_usd": 500,
+    "max_notional_per_trade_usd": 650,
     "max_new_trades_per_day": 5,
     "max_position_pct_of_account": 0.35,
     "halt_new_trades_below_account_value_usd": 500
