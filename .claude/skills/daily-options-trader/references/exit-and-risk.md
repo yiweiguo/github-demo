@@ -54,6 +54,7 @@ contracts_to_buy = min(max_by_trade_cap, max_by_position_cap)
 - Otherwise: `review_option_order` first (single leg `{option_id, side: "buy", position_effect: "open"}`, `quantity: contracts_to_buy`, `type: "limit"`, `price` = current ask or midpoint per the liquidity rule, `time_in_force: "gfd"`, plus `chain_symbol` + `underlying_type: "equity"` so fees/collateral come back). Treat `review_option_order`'s `order_checks` alerts as the automated go/no-go gate for this run (there is no human present to confirm — the user has explicitly authorized fully autonomous execution under these exact limits). Any blocking alert (insufficient buying power, instrument halted, etc.) means skip this candidate and log why; do not override an alert.
 - If review is clean, call `place_option_order` with the same parameters plus a fresh `ref_id` (UUID).
 - Log an `entry` event with the order id and state.
+- **Never reuse an `option_id` from earlier in the conversation or a prior run.** Take it only from this run's own `get_option_instruments` call for this candidate. A long-running session accumulates option_ids for many contracts across many symbols and expirations; reusing one from memory (e.g. yesterday's screen, or an earlier candidate this same run) risks placing the wrong strike with real money. If you cannot point to the exact `get_option_instruments` response this run that produced the `option_id` you're about to trade, re-fetch it before calling `review_option_order`.
 
 ## Daily new-trade cap
 

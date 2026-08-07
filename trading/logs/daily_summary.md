@@ -27,3 +27,11 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
 - Entries: **0 of 5** — 2 candidates (AMZN $290C, NVDA $235C) cleared the liquidity filter (the other 11 failed on spread and/or open interest), but both then failed the $500/trade sizing cap: AMZN's ask moved from $4.65 to $6.10 between the initial quote and `review_option_order` (options can reprice fast intraday), pushing 1 contract to $610; NVDA's ask of $5.45 alone already priced 1 contract at $545. Neither was overridden — the cap held. Full per-symbol reasons in `trade_log.jsonl`.
 - Observation: two days in a row, liquid large-caps' near-the-money calls are mostly clearing the trend/RSI/expiration filters but failing on spread or getting priced above the $500/trade cap. Worth discussing whether to raise the per-trade cap, loosen the spread filter, or look at cheaper (further-dated or more OTM) strikes if this keeps recurring.
 - Result: account unchanged at $2,099.79. No trades placed.
+
+### Update — same day, cap raised to $650
+- User directed raising `max_notional_per_trade_usd` from $500 to $650 after reviewing the two misses above.
+- Re-checked AMZN and NVDA at current prices: both now clear liquidity and sizing under the new cap.
+- **Bought 1x NVDA 2026-09-04 $235C @ $5.80** — correct, matches intended candidate.
+- **Bought 1x AMZN 2026-09-04 $285C @ $5.80** (limit was actually $5.80 for AMZN, $5.50 for NVDA — see trade_log.jsonl for exact per-leg prices) — **execution error**: intended contract was $290C (the one actually screened for liquidity today), but a stale option_id from yesterday's session got used when placing the order, buying $285C instead. Still within the valid 2-10% OTM band, so not a guardrail breach, just not the contract described to the user. Disclosed immediately; left in place rather than unwound (canceling/re-buying would add slippage for a difference that's within tolerance).
+- Combined new exposure: ~$1,130 (both orders `unconfirmed`/pending fill as of log time), well under the 35%-of-account position cap for each name individually.
+- Action item: the entry-strategy procedure should include a hard rule to always re-derive `option_id` from the current run's own `get_option_instruments` call rather than reusing any ID cached earlier in a long-running session, to prevent this class of mistake recurring.
