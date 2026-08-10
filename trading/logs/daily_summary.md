@@ -35,3 +35,18 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
 - **Bought 1x AMZN 2026-09-04 $285C @ $5.80** (limit was actually $5.80 for AMZN, $5.50 for NVDA — see trade_log.jsonl for exact per-leg prices) — **execution error**: intended contract was $290C (the one actually screened for liquidity today), but a stale option_id from yesterday's session got used when placing the order, buying $285C instead. Still within the valid 2-10% OTM band, so not a guardrail breach, just not the contract described to the user. Disclosed immediately; left in place rather than unwound (canceling/re-buying would add slippage for a difference that's within tolerance).
 - Combined new exposure: ~$1,130 (both orders `unconfirmed`/pending fill as of log time), well under the 35%-of-account position cap for each name individually.
 - Action item: the entry-strategy procedure should include a hard rule to always re-derive `option_id` from the current run's own `get_option_instruments` call rather than reusing any ID cached earlier in a long-running session, to prevent this class of mistake recurring.
+- **Fix applied**: added a hard rule to `references/exit-and-risk.md` requiring `option_id` to always be freshly re-fetched from this run's own `get_option_instruments` call, never reused from earlier in a session or a prior run.
+
+## 2026-08-10 — Agentic account ($1,956.07)
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Halt check: OK (account value $1,956.07 above the $500 floor)
+- Exits: 2 open long-call positions checked, both held (no exit trigger hit):
+  - NVDA 2026-09-04 $235C — pnl -15.1%, within the -50% stop / +75% target band, DTE above the 7-day time stop
+  - AMZN 2026-09-04 $285C — pnl -10.8%, within the -50% stop / +75% target band, DTE above the 7-day time stop
+- Universe: 29 tickers, all passed tradability; 13 passed the trend/RSI signal (ranked by RSI): BAC, ADBE, NVDA, AMZN, JPM, CRM, HD, KO, MA, XOM, JNJ, LLY, V — V dropped from the ranked list after re-check (failed price>20SMA: 361.60 < 361.84), leaving 12 ranked candidates.
+- Entries: **0 of 5** — all 12 ranked candidates were screened and none resulted in a trade:
+  - NVDA and AMZN cleared the liquidity filter (spread and open interest), but both failed the 35%-of-account position-sizing cap because of the existing NVDA $235C and AMZN $285C holdings already concentrated in those names — no room left under the per-underlying cap.
+  - The remaining 10 candidates (BAC, ADBE, JPM, CRM, HD, KO, MA, XOM, JNJ, LLY) failed the liquidity filter (bid-ask spread > 10% of mid and/or open interest below the 100 floor) at their ~5%-OTM, ~28-DTE strike.
+  - Full per-symbol reasons in `trade_log.jsonl`.
+- Open question for the user: three runs in, the strategy keeps clearing the trend/RSI signal on largely the same handful of names (AMZN, NVDA, BAC, ADBE, JPM, CRM, HD, KO, MA, XOM, JNJ, LLY) but is repeatedly blocked either by the 10%-of-mid liquidity filter or, now that positions exist, by the 35% concentration cap in the same underlyings. Worth considering: loosening the spread filter, widening the universe/signal to surface more candidates, or accepting fewer trades as the natural result of the current filters. No unilateral change made — flagging for your input.
+- Result: account value $1,956.07 (down from the $2,099.79 cost basis reference point, reflecting unrealized losses on the two open positions). No new trades placed.
