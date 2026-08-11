@@ -50,3 +50,18 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
   - Full per-symbol reasons in `trade_log.jsonl`.
 - Open question for the user: three runs in, the strategy keeps clearing the trend/RSI signal on largely the same handful of names (AMZN, NVDA, BAC, ADBE, JPM, CRM, HD, KO, MA, XOM, JNJ, LLY) but is repeatedly blocked either by the 10%-of-mid liquidity filter or, now that positions exist, by the 35% concentration cap in the same underlyings. Worth considering: loosening the spread filter, widening the universe/signal to surface more candidates, or accepting fewer trades as the natural result of the current filters. No unilateral change made — flagging for your input.
 - Result: account value $1,956.07 (down from the $2,099.79 cost basis reference point, reflecting unrealized losses on the two open positions). No new trades placed.
+
+## 2026-08-11 — Agentic account ($1,823.07)
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Halt check: OK (account value $1,823.07 above the $500 floor)
+- Exits: 2 open long-call positions checked, both held (no exit trigger hit):
+  - NVDA 2026-09-04 $235C — pnl -29.4%, within the -50% stop / +75% target band, 24 DTE remaining > 7-day time stop
+  - AMZN 2026-09-04 $285C — pnl -20.3%, within the -50% stop / +75% target band, 24 DTE remaining > 7-day time stop
+- Universe: 29 tickers, all passed tradability; 13 passed the trend/RSI signal and price>20SMA confirmation (ranked by RSI): BAC, ADBE, XOM, AMZN, CRM, JPM, LLY, MA, KO, JNJ, NVDA, HD, V
+- Entries: **0 of 5** — all 13 ranked candidates were screened at their ~5%-OTM, ~28–31-DTE strike and none resulted in a trade:
+  - NVDA cleared the liquidity filter cleanly (spread 3.3%, OI 4,608) but failed the 35%-of-account position cap — the existing NVDA $235C holding left only $253.07 of room, and the next contract would have cost $610.
+  - AMZN narrowly missed the liquidity filter (spread 10.8% vs. the 10% max) and would also have failed the position cap given the existing AMZN $285C holding.
+  - The remaining 11 candidates (BAC, ADBE, XOM, CRM, JPM, LLY, MA, KO, JNJ, HD, V) failed the liquidity filter (spreads ranging ~29%–76% of mid, several also below the 100 open-interest floor). LLY was additionally priced far above the per-trade cap (~$2,900/contract vs. the $650 max).
+  - Full per-symbol reasons in `trade_log.jsonl`.
+- Standing observation (now three runs with the same pattern): the trend/RSI screen keeps surfacing the same large-cap names, but round-number, less-liquid strikes on these names routinely blow through the 10%-of-mid spread filter, and the two names that do clear liquidity (NVDA, AMZN) are now capped out by existing position concentration. The strategy is functioning as designed (guardrails correctly blocking marginal/concentrated trades) but is structurally trade-starved under the current filter settings. Still flagging rather than changing unilaterally — this is a strategy-parameter decision for the user.
+- Result: account value $1,823.07 (down further from $1,956.07, reflecting continued unrealized losses on the two open positions — no new trades placed).
