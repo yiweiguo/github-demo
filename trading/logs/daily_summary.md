@@ -65,3 +65,18 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
   - Full per-symbol reasons in `trade_log.jsonl`.
 - Standing observation (now three runs with the same pattern): the trend/RSI screen keeps surfacing the same large-cap names, but round-number, less-liquid strikes on these names routinely blow through the 10%-of-mid spread filter, and the two names that do clear liquidity (NVDA, AMZN) are now capped out by existing position concentration. The strategy is functioning as designed (guardrails correctly blocking marginal/concentrated trades) but is structurally trade-starved under the current filter settings. Still flagging rather than changing unilaterally — this is a strategy-parameter decision for the user.
 - Result: account value $1,823.07 (down further from $1,956.07, reflecting continued unrealized losses on the two open positions — no new trades placed).
+
+## 2026-08-12 — Agentic account ($1,785.07)
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Halt check: OK (account value $1,785.07 above the $500 floor)
+- Exits: 2 open long-call positions checked, both held (no exit trigger hit):
+  - NVDA 2026-09-04 $235C — pnl -8.3%, within the -50% stop / +75% target band, 23 DTE remaining > 7-day time stop
+  - AMZN 2026-09-04 $285C — pnl -47.1%, within the -50% stop / +75% target band but now close to the stop, 23 DTE remaining > 7-day time stop
+- Universe: 29 tickers, all passed tradability; 13 passed the trend/RSI signal, then V dropped on the price>20SMA re-check, leaving 12 ranked candidates: XOM, JPM, CRM, ADBE, AMZN, HD, AVGO, MA, NVDA, LLY, KO, JNJ. (BAC dropped out of the signal entirely this run — RSI rose to 70.3, just over the 50–70 band; AVGO newly qualified as its 20SMA crossed above its 50SMA.)
+- Entries: **0 of 5** — all 12 ranked candidates were screened at their ~5%-OTM, ~30-DTE strike and none resulted in a trade:
+  - NVDA cleared the liquidity filter cleanly (spread 3.6%, OI 1,778) but failed the 35%-of-account position cap — the existing NVDA $235C holding left only $124.77 of room (shrinking further as the account value declines), against a $560 contract.
+  - AMZN failed the liquidity filter outright this time (spread 15.2% vs. the 10% max, versus 10.8% yesterday — the spread widened).
+  - The remaining 9 candidates (XOM, JPM, CRM, ADBE, HD, AVGO, MA, LLY, KO, JNJ) failed the liquidity filter (spreads ~12%–49% of mid, several also below the 100 open-interest floor). AVGO and LLY were additionally priced far above the per-trade cap (~$1,825 and ~$2,460 per contract vs. the $650 max).
+  - Full per-symbol reasons in `trade_log.jsonl`.
+- Standing observation (now four runs with the same pattern, and worsening): the account is down to $1,785.07 from a $2,100 starting point, driven by unrealized losses on the two open positions (AMZN now -47%, one exit-rule breach away from the stop loss). The entry side remains structurally blocked — liquid enough names keep failing the spread filter, and the one name that does clear liquidity (NVDA) has shrinking position-cap room as the account value falls. No changes made unilaterally; still flagging for the user's input on whether to loosen the liquidity filter, adjust the exit thresholds, or hold as-is.
+- Result: account value $1,785.07 (down from $1,823.07 — no new trades placed; existing position losses are the primary driver of the decline).
