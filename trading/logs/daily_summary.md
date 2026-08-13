@@ -80,3 +80,17 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
   - Full per-symbol reasons in `trade_log.jsonl`.
 - Standing observation (now four runs with the same pattern, and worsening): the account is down to $1,785.07 from a $2,100 starting point, driven by unrealized losses on the two open positions (AMZN now -47%, one exit-rule breach away from the stop loss). The entry side remains structurally blocked — liquid enough names keep failing the spread filter, and the one name that does clear liquidity (NVDA) has shrinking position-cap room as the account value falls. No changes made unilaterally; still flagging for the user's input on whether to loosen the liquidity filter, adjust the exit thresholds, or hold as-is.
 - Result: account value $1,785.07 (down from $1,823.07 — no new trades placed; existing position losses are the primary driver of the decline).
+
+## 2026-08-13 — Agentic account ($1,783.07)
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Halt check: OK (account value $1,783.07 above the $500 floor)
+- Exits: 2 open long-call positions checked, one closed:
+  - **AMZN 2026-09-04 $285C — STOP LOSS TRIGGERED.** pnl hit -56.4% (below the -50% threshold). Sold to close 1 contract at $2.46 (bid, spread 5.5% — within the liquidity filter). Realized loss ≈ -$334 on the contract (before the $0.04 fee). This is the first stop-loss exit since the strategy went live.
+  - NVDA 2026-09-04 $235C — held, pnl +1.8% (first time positive), 22 DTE remaining > 7-day time stop.
+- Universe: 29 tickers, all passed tradability; 13 passed the trend/RSI signal, then V dropped again on the price>20SMA re-check, leaving 12 ranked candidates: JPM, XOM, NVDA, CRM, ADBE, AVGO, LLY, KO, AMZN, MA, JNJ, HD.
+- Entries: **1 of 5** — **bought 1x AMZN 2026-09-11 $285C @ $3.30.** AMZN's stop-loss exit earlier in this same run freed up its position-cap room, and the fresh screen found a *different*, more liquid AMZN contract (spread 9.5%, OI 362) than the one just closed. Sized to 1 contract under both the $650 trade cap and the $624.07 position-cap room (no other AMZN exposure after the exit).
+  - NVDA cleared liquidity again (spread 3.0%, OI 1,894) but the position cap has now shrunk to just $69.07 of room — blocked.
+  - The remaining 10 candidates (JPM, XOM, CRM, ADBE, AVGO, LLY, KO, MA, JNJ, HD) failed the liquidity filter (spreads ~10%–72% of mid), with AVGO and LLY additionally priced over the $650 per-trade cap.
+  - Full per-symbol reasons in `trade_log.jsonl`.
+- Notable: this is the first run with both an exit (stop loss) and a new entry. The stop loss on AMZN was a real, working guardrail — it capped the loss at -50% instead of letting it run further, and the freed-up capital was redeployed same-run into a fresh, more-liquid AMZN contract at a much lower strike-relative cost ($3.30 vs. the original $5.80). NVDA's position-cap room keeps shrinking as the account value declines; if NVDA's own price recovers or the account value drops further, that room could hit zero.
+- Result: account value $1,783.07. One position closed at a loss (AMZN, -$334 realized), one new position opened (AMZN, $330 cost), one position held (NVDA, +1.8% unrealized).
