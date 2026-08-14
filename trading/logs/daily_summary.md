@@ -94,3 +94,19 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
   - Full per-symbol reasons in `trade_log.jsonl`.
 - Notable: this is the first run with both an exit (stop loss) and a new entry. The stop loss on AMZN was a real, working guardrail — it capped the loss at -50% instead of letting it run further, and the freed-up capital was redeployed same-run into a fresh, more-liquid AMZN contract at a much lower strike-relative cost ($3.30 vs. the original $5.80). NVDA's position-cap room keeps shrinking as the account value declines; if NVDA's own price recovers or the account value drops further, that room could hit zero.
 - Result: account value $1,783.07. One position closed at a loss (AMZN, -$334 realized), one new position opened (AMZN, $330 cost), one position held (NVDA, +1.8% unrealized).
+
+## 2026-08-14 — Agentic account ($1,633.97)
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Halt check: OK (account value $1,633.97 above the $500 floor)
+- Exits: 2 open long-call positions checked, both held (no exit trigger hit):
+  - AMZN 2026-09-11 $285C — pnl -35.6% (yesterday's fresh entry, already down sharply), within the -50% stop / +75% target band, 28 DTE remaining > 7-day time stop
+  - NVDA 2026-09-04 $235C — pnl -2.8%, within the -50% stop / +75% target band, 21 DTE remaining > 7-day time stop
+- Universe: 29 tickers, all passed tradability; 14 passed the trend/RSI signal (BAC and DIS newly qualified this run), then LLY dropped on the price>20SMA re-check, leaving 13 ranked candidates: BAC, JPM, CRM, XOM, DIS, ADBE, NVDA, MA, KO, AVGO, JNJ, V, AMZN.
+- Entries: **0 of 5** — all 13 ranked candidates were screened and none resulted in a trade:
+  - NVDA cleared liquidity again (spread 2.4%, OI 1,915) but the position cap has shrunk further to just $41.89 of room — blocked.
+  - AVGO cleared liquidity cleanly (spread 9.4%, OI 1,768) but 1 contract cost $1,610 — far over the $650 per-trade cap.
+  - AMZN (a different strike, $280C, from the $285C already held) narrowly missed liquidity at 10.9% spread vs. the 10% max.
+  - The remaining 10 candidates (BAC, JPM, CRM, XOM, DIS, ADBE, MA, KO, JNJ, V) failed the liquidity filter outright, spreads ranging ~12%–91% of mid.
+  - Full per-symbol reasons in `trade_log.jsonl`.
+- Notable: AMZN's new position (opened yesterday at $3.30) is already down 35.6% one day later — a sharp move that's worth watching given it's not yet near the stop loss but shows how fast these front-month, moderately-OTM contracts can swing. Account value continues to decline ($1,783.07 → $1,633.97), now driven primarily by the AMZN position's unrealized loss rather than new trades (0 placed today). Both NVDA's position-cap room ($41.89) and the overall liquidity-filter pass rate remain the binding constraints on new entries.
+- Result: account value $1,633.97 (down from $1,783.07). No new trades placed; both open positions held.
