@@ -1,5 +1,6 @@
 {
   "_comment": "Single source of truth for the daily-options-trader skill. Edit this file to change behavior. Set enabled=false to pause all autonomous trading without deleting the schedule.",
+  "_strategy_switch_note": "2026-08-16: user switched the account's primary strategy to long-term value-equity investing (see trading/equity_config.json and the value-equity-investor skill). This options skill is kept alive ONLY to manage the existing NVDA long call through its existing exit rules (profit target / stop loss / time stop) to a natural close. max_new_trades_per_day is set to 0 so it never opens another options position. Do not raise it back above 0 without the user explicitly asking to resume options trading.",
   "enabled": true,
   "account_number": "596067660",
   "account_nickname": "Agentic",
@@ -8,7 +9,7 @@
 
   "risk_limits": {
     "max_notional_per_trade_usd": 650,
-    "max_new_trades_per_day": 5,
+    "max_new_trades_per_day": 0,
     "max_position_pct_of_account": 0.35,
     "halt_new_trades_below_account_value_usd": 500
   },

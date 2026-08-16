@@ -5,6 +5,8 @@ description: Runs one day's cycle of the autonomous long-call options strategy o
 
 # Daily options trader
 
+> **2026-08-16: options is no longer the account's primary strategy.** The user switched to long-term value-equity investing — see `trading/equity_config.json` and the `value-equity-investor` skill. This skill stays alive only to run off the last open options position (NVDA) to its existing exit rules; `trading/config.json` has `max_new_trades_per_day: 0` so it will never open another options position. Don't raise that back up without the user explicitly asking to resume options trading.
+
 **This skill places real single-leg long-call options orders with real money on a live Robinhood account, with no human confirmation step per trade.** It was built to the user's explicit specification: fully autonomous, high risk accepted, long calls only, on the Agentic account. Every numeric limit below is read from `trading/config.json`, not hardcoded here — that file is the actual control surface.
 
 Read `trading/config.json` in full before doing anything else in a run. If any instruction here conflicts with the current config, the config wins.

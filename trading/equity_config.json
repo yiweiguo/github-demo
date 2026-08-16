@@ -1,0 +1,60 @@
+{
+  "_comment": "Single source of truth for the value-equity-investor skill. Edit this file to change behavior. Set enabled=false to pause all autonomous equity trading without deleting the schedule.",
+  "_history": "Created 2026-08-16 when the user switched the Agentic account's primary strategy away from short-dated options (see trading/config.json) to long-term value-equity investing, after a rough first week of options trading (-27% in week 1).",
+  "enabled": true,
+  "account_number": "596067660",
+  "account_nickname": "Agentic",
+  "required_agentic_allowed": true,
+
+  "risk_limits": {
+    "max_new_trades_per_day": 20,
+    "max_position_pct_of_account": 0.15,
+    "min_new_position_usd": 50,
+    "halt_new_trades_below_account_value_usd": 200,
+    "cash_reserve_usd": 10,
+    "notes": "max_new_trades_per_day=20 is a user-specified ceiling, not a target -- this is a slow-accumulation strategy and will rarely place more than a handful of buys in one run. max_position_pct_of_account=15% and the target_position_count below (in entry policy) together drive per-trade sizing toward roughly even diversification across 8-12 holdings. cash_reserve_usd is a small buffer left unspent to absorb price moves between screening and fill."
+  },
+
+  "instrument_scope": {
+    "asset_classes": ["equity"],
+    "side_allowed": ["buy"],
+    "order_type": "market",
+    "notes": "Long equity positions only, bought with dollar-denominated fractional-share market orders in regular_hours. No options, no shorting, no margin. This skill NEVER sells -- see exit policy below."
+  },
+
+  "entry": {
+    "target_position_count": [8, 12],
+    "screening": {
+      "mechanism": "Robinhood scanner (get_scanner_filter_specs / create_scan / run_scan / update_scan_filters)",
+      "scan_id": "4fc1d593-2bc9-4e50-b8fa-f61cf1159e9a",
+      "scan_title": "Value Screen — Undervalued Quality",
+      "quantitative_filters": {
+        "market_cap_usd_min": 2000000000,
+        "price_usd_min": 5,
+        "pe_ratio_range": [5, 22],
+        "net_profit_margin_min_pct": 8,
+        "return_on_equity_min_pct": 12,
+        "avg_volume_10d_min": 500000
+      },
+      "note_on_percentage_filters": "The scanner's PERCENTAGE-unit filters (net profit margin, ROE, etc.) take fractional values, not whole percentage points -- 8% is '0.08', not '8'. Confirmed by testing: passing '8' silently returns zero results instead of erroring."
+    },
+    "qualitative_judgment": {
+      "type": "broader_judgment",
+      "notes": "The quantitative scan produces a shortlist, not a buy list. Before buying, apply judgment on top of it: (1) check get_financials (a few recent quarters, revenue and net income) for a business that is stable or growing, not visibly deteriorating despite a cheap headline multiple -- that combination is the classic value-trap pattern; (2) favor well-known, easily understood businesses over thinly-traded or structurally complex names for this account's size; (3) prefer US-domiciled, standard common stock -- be cautious with foreign ADRs (VIE structures, delisting/regulatory risk) and highly cyclical commodity/shipping names, which the scan's low-P/E ranking tends to surface disproportionately since cheap multiples are often structural in those sectors, not a mispricing; (4) diversify across GICS-ish sectors -- avoid ending up with several picks that are all the same sector because they dominate the bottom of the P/E ranking (financials/insurance/energy naturally cluster there); (5) skip a statistically-cheap name if get_financials shows a clear multi-quarter decline in revenue or margin -- note the skip and reason in the log rather than forcing a fill of target_position_count."
+    },
+    "sizing": "Each run: room = min(risk_limits.max_position_pct_of_account * current_account_value, (cash_available - risk_limits.cash_reserve_usd) / max(1, slots_remaining_to_target_position_count)). Skip a candidate if room < risk_limits.min_new_position_usd. Place as a dollar_amount market order in regular_hours (fractional shares)."
+  },
+
+  "exit": {
+    "policy": "never_sell_autonomously",
+    "notes": "This skill only ever buys. It never places a sell order on an equity position, regardless of price move, valuation change, or any other signal. If a position needs to be sold, that is a decision only the user makes, executed manually or by explicit one-off instruction outside this skill's autonomous run. Do not add a stop-loss, profit-target, rebalancing-sell, or any other autonomous sell trigger to this skill without the user explicitly asking for one."
+  },
+
+  "order_execution": {
+    "order_type": "market",
+    "sizing_method": "dollar_amount",
+    "market_hours": "regular_hours",
+    "time_in_force": "gfd",
+    "notes": "Dollar-based fractional orders only execute in regular_hours; if run while markets are closed the order queues for the next regular open."
+  }
+}

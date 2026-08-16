@@ -110,3 +110,33 @@ Append one section per run, newest at the bottom. See `README.md` for the compan
   - Full per-symbol reasons in `trade_log.jsonl`.
 - Notable: AMZN's new position (opened yesterday at $3.30) is already down 35.6% one day later — a sharp move that's worth watching given it's not yet near the stop loss but shows how fast these front-month, moderately-OTM contracts can swing. Account value continues to decline ($1,783.07 → $1,633.97), now driven primarily by the AMZN position's unrealized loss rather than new trades (0 placed today). Both NVDA's position-cap room ($41.89) and the overall liquidity-filter pass rate remain the binding constraints on new entries.
 - Result: account value $1,633.97 (down from $1,783.07). No new trades placed; both open positions held.
+
+## 2026-08-16 — STRATEGY SWITCH: options → long-term value equity
+
+After a rough first week (account -27% vs. SPY/VOO +0.4%, see the 2026-08-14 weekly report), the user directed a switch of the account's primary strategy away from short-dated options to long-term, diversified, value-oriented equity investing.
+
+**Options positions:**
+- AMZN 2026-09-11 $285C — **closed** per user directive (not a rule-triggered exit; pnl was -51.8%, still inside the -50%/+75% band). Sold to close at $1.54, order queued for Monday's open (market closed, Sunday). Realized loss ≈ -$176 on this contract (cost $330, closing credit $154).
+- NVDA 2026-09-04 $235C — **held**, per user directive, under its existing exit rules (roughly breakeven, pnl checked this run, no trigger hit). This is the last options position; once it closes (by rule or expiration) the options side of the account is fully wound down.
+- `trading/config.json`: `risk_limits.max_new_trades_per_day` set to 0 (was 5). The `daily-options-trader` skill stays alive only to manage NVDA to a natural close — it will never open another options position. See the note added to that skill's file.
+
+**New strategy stood up:** `trading/equity_config.json` + the new `value-equity-investor` skill (`.claude/skills/value-equity-investor/`). Summary of user-directed parameters: buy-only, never sells autonomously, target 8-12 diversified positions, max 15% of account per position, up to 20 buys/day (a ceiling, not a target), screening via a Robinhood scanner (saved scan `4fc1d593-2bc9-4e50-b8fa-f61cf1159e9a`, "Value Screen — Undervalued Quality": market cap > $2B, price > $5, P/E 5-22, net margin > 8%, ROE > 12%, 10-day avg volume > 500k) plus qualitative judgment on top (financial-trend check via `get_financials`, avoid foreign ADRs/thin names, avoid sector pile-up).
+
+**First run of the new strategy (same day):** Screen returned 333 quantitative matches. Applied qualitative judgment: dropped foreign ADRs (PDD, FUTU, KSPI) and small/cyclical shipping names (ECO, INSW, VAL) that dominate the low end of a raw P/E ranking; cross-checked revenue/net-income trend via `get_financials` for the top domestic candidates; skipped LULU and UHS from the initial shortlist (margin compression / unconfirmed trend, and no autonomous sell means the initial bar needs to be higher). Landed on 8 diversified, well-known names, one per sector:
+
+| Symbol | Sector | P/E | ROE | Net margin | Buy ($) |
+|---|---|---|---|---|---|
+| PYPL | Fintech/Payments | 11.7 | 24.5% | ~13-16% (growing revenue, verified via get_financials) | $73.40 |
+| WFC | Banking | 12.9 | 13.1% | improving net income trend (verified) | $73.40 |
+| MKC | Consumer Staples | 9.1 | 25.7% | growing revenue (verified) | $73.40 |
+| ZTS | Healthcare (animal health) | 12.0 | 64.9% | 29.0% | $73.40 |
+| CF | Materials (fertilizer) | 8.8 | 39.2% | 25.7% | $73.40 |
+| TRV | Insurance (P&C) | 10.0 | 26.3% | 17.0% | $73.40 |
+| EOG | Energy | 11.1 | 22.5% | 27.3% | $73.40 |
+| HON | Industrials | 9.0 | 47.4% | noisy quarterly net income (ongoing 3-way spin-off) but stable revenue | $73.40 |
+
+Sizing: `min(15% of account value, (cash - $10 reserve) / slots remaining to target 12)` — converges to ~$73.40/position for this batch. All 8 orders placed as dollar-based fractional market orders, `state: queued` (market closed, Sunday) — will fill at Monday's open. Total committed: $587.20. Remaining cash after this run: ~$303.77, plus ~$154 pending from the AMZN close once settled — held in reserve for future runs rather than fully deployed, leaving room to reach the 8-12 position target as more candidates clear both screens.
+
+Full per-symbol reasoning (including candidates screened and rejected) in `trading/logs/equity_trade_log.jsonl`; this run's summary also in `trading/logs/equity_daily_summary.md`.
+
+**Result:** account value $1,539.97 at time of switch. Options: 1 position closed (AMZN, user-directed, realized loss ≈-$176), 1 held (NVDA, near breakeven). Equity: 8 new positions opened (queued for Monday), 0 sold (this skill never sells).
