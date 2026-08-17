@@ -34,3 +34,21 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - Sector spread achieved: Fintech, Banking, Staples, Healthcare, Materials, Insurance, Energy, Industrials — 8 distinct sectors, no concentration.
 - Full per-symbol reasoning, including all skipped candidates, in `equity_trade_log.jsonl`.
 - **Result: 8 new positions opened, 0 sold (this skill never sells), $303.77 cash remaining plus pending AMZN proceeds.**
+
+## 2026-08-17 — Agentic account ($1,552.68) — second run, reached the 12-position target
+
+- Account safety check: OK (agentic_allowed=true)
+- Halt check: OK (account value $1,552.68 above the $200 floor)
+- Confirmed 2026-08-16's 8 queued buys filled: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON all in `get_equity_positions`. AMZN options proceeds still unsettled ($171.94), not yet spendable (buying power $303.77 vs. cash $475.71).
+- Re-ran the scanner (`4fc1d593-2bc9-4e50-b8fa-f61cf1159e9a`) excluding the 8 already-held symbols. Same 333-match pool, same structural clustering (financials/insurance/energy/shipping dominate the low end of the P/E ranking) — repeat-excluded the same foreign ADRs (PDD, FUTU, KSPI) and cyclical shipping/drilling names (ECO, INSW, VAL) as 2026-08-16.
+- Picked 4 new names specifically to reach sectors the account didn't have yet, rather than just re-ranking by P/E:
+  - **CHKP** (Check Point Software, Technology/Cybersecurity) — P/E 13.5, ROE 37.6%, margin 38.0% (exceptional). First tech/software slot.
+  - **DECK** (Deckers, Consumer Discretionary/Footwear) — P/E 13.2, ROE 40.9%, margin 18.7%. Picked over CROX (similar metrics) to avoid holding two footwear names.
+  - **EIX** (Edison International, Utilities) — P/E 7.4, ROE 23.0%, margin 17.3%. First utility slot. **Watch item:** Southern California utilities carry known wildfire-liability litigation history — the low P/E may partly reflect real, priced-in risk rather than pure mispricing. Bought small (~$73) for genuine sector diversification, but this is the least-confirmed pick of the four.
+  - **THC** (Tenet Healthcare, Healthcare/Hospitals) — P/E 10.4, ROE 53.3%, margin 10.4% (thin, typical for the sub-industry). Second healthcare name (hospitals vs. ZTS's animal health).
+  - `get_financials` returned no trend data for any of the 4 via this tool (same gap seen for ZTS/CF/TRV/EOG on 2026-08-16) — proceeded on the strength of scan metrics + business familiarity per the same standard as last time, documented per-symbol in the trade log.
+- Sizing: ~$73.44/position (formula-driven, same as 2026-08-16), $293.76 total this run.
+- **Account now holds 12 positions — the top of the target range: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.** Sectors: Fintech, Banking, Consumer Staples, Healthcare ×2 (animal health + hospitals), Materials, Insurance, Energy, Industrials, Technology, Consumer Discretionary, Utilities — 10 distinct sectors across 12 positions, no more than 2 in any one.
+- Remaining buying power ~$10.01 (at the cash reserve floor) plus ~$154 pending from the AMZN options close. No further buys needed or attempted this run — target reached.
+- Full per-symbol reasoning, including all skipped candidates, in `equity_trade_log.jsonl`.
+- **Result: 4 new positions opened, 0 sold. Portfolio now at its 12-position target; future runs will likely be smaller top-ups (dividends, any added cash) rather than new full-slot buys unless the target range is changed.**

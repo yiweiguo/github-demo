@@ -140,3 +140,11 @@ Sizing: `min(15% of account value, (cash - $10 reserve) / slots remaining to tar
 Full per-symbol reasoning (including candidates screened and rejected) in `trading/logs/equity_trade_log.jsonl`; this run's summary also in `trading/logs/equity_daily_summary.md`.
 
 **Result:** account value $1,539.97 at time of switch. Options: 1 position closed (AMZN, user-directed, realized loss ≈-$176), 1 held (NVDA, near breakeven). Equity: 8 new positions opened (queued for Monday), 0 sold (this skill never sells).
+
+## 2026-08-17 — Agentic account ($1,557.14) — options leg (NVDA-only, no new entries)
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Confirmed Monday's queued orders filled: AMZN close settled (no longer in positions, unsettled_funds $171.94), equity_value now $586.43 (the 8 new stock positions landed).
+- Exit check: NVDA 2026-09-04 $235C — pnl -8.7%, within the -50% stop / +75% target band, 18 DTE remaining > 7-day time stop. Held, no exit triggered.
+- Entries: **0/0** — `max_new_trades_per_day` is 0 per the 2026-08-16 strategy switch, so no entry screening ran this cycle. This skill is now a pure NVDA-management no-op on the entry side, as expected.
+- Result: account value $1,557.14. No trades this run; NVDA held.
