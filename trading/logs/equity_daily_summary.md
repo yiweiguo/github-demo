@@ -52,3 +52,28 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - Remaining buying power ~$10.01 (at the cash reserve floor) plus ~$154 pending from the AMZN options close. No further buys needed or attempted this run — target reached.
 - Full per-symbol reasoning, including all skipped candidates, in `equity_trade_log.jsonl`.
 - **Result: 4 new positions opened, 0 sold. Portfolio now at its 12-position target; future runs will likely be smaller top-ups (dividends, any added cash) rather than new full-slot buys unless the target range is changed.**
+
+## 2026-08-18 — Agentic account ($1,390.16) — third run, at target, 0 new buys (expected)
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 61.42 | +0.62% |
+  | WFC | 89.25 | 87.61 | -1.84% |
+  | MKC | 54.32 | 55.01 | +1.27% |
+  | ZTS | 72.93 | 73.46 | +0.73% |
+  | CF | 118.41 | 120.46 | +1.73% |
+  | TRV | 369.77 | 368.99 | -0.21% |
+  | EOG | 142.77 | 147.63 | +3.40% |
+  | HON | 232.31 | 228.81 | -1.51% |
+  | CHKP | 130.01 | 130.63 | +0.48% |
+  | DECK | 90.24 | 91.13 | +0.99% |
+  | EIX | 71.52 | 73.01 | +2.08% |
+  | THC | 267.07 | 268.74 | +0.63% |
+
+- No new buys this run — the account is already at the top of `target_position_count` ([8, 12], currently 12/12). This is the skill's own designed behavior, not a cap or halt: once the upper bound is reached, further diversification-driven buying stops until the user changes the target range or the skill is explicitly re-triggered for top-ups. No screen was re-run this cycle since there's no room to act on it.
+- Net: the equity book was roughly flat to slightly up today (9 of 12 positions green, none moved more than ~3.4% either way) — it was **not** the driver of the account's ~$167 decline today. See the corrected note in `trading/logs/daily_summary.md`'s 2026-08-18 entry: that drop is attributable to the NVDA options position's mark-to-market move (-8.7% → -41.3%), not the equity leg.
+- **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**

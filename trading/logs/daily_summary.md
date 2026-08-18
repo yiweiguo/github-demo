@@ -148,3 +148,11 @@ Full per-symbol reasoning (including candidates screened and rejected) in `tradi
 - Exit check: NVDA 2026-09-04 $235C — pnl -8.7%, within the -50% stop / +75% target band, 18 DTE remaining > 7-day time stop. Held, no exit triggered.
 - Entries: **0/0** — `max_new_trades_per_day` is 0 per the 2026-08-16 strategy switch, so no entry screening ran this cycle. This skill is now a pure NVDA-management no-op on the entry side, as expected.
 - Result: account value $1,557.14. No trades this run; NVDA held.
+
+## 2026-08-18 — Agentic account ($1,390.16) — options leg (NVDA-only, no new entries)
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- Exit check: NVDA 2026-09-04 $235C — pnl -41.3%, still within the -50% stop / +75% target band but moving closer to the stop, 17 DTE remaining > 7-day time stop. Held, no exit triggered.
+- Entries: **0/0** — `max_new_trades_per_day` is 0, no entry screening this cycle (expected no-op).
+- Note (corrected): account value declined from $1,557.14 to $1,390.16 (-$166.98). Per-symbol equity quotes pulled this run show small, mostly positive day-over-day moves (EOG +3.4%, EIX +2.1%, CF +1.7%, others within ±2%) — the equity book was roughly flat to slightly up, not the driver. The NVDA call's pnl moved from -8.7% to -41.3% over the same span; on a ~$545 cost basis that's roughly a $177 drop in options value, which alone accounts for the account-level decline. An earlier draft of this line attributed the drop to equity mark-to-market — that was wrong; the options leg was the dominant driver today.
+- Result: account value $1,390.16. No trades this run; NVDA held, now closer to its -50% stop loss.
