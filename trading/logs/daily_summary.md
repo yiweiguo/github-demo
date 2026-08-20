@@ -164,3 +164,11 @@ Full per-symbol reasoning (including candidates screened and rejected) in `tradi
 - This was the account's last open options position. Per the 2026-08-16 strategy switch, `max_new_trades_per_day` stays at 0 — no new entries were screened or considered this run.
 - **The options leg now holds nothing.** Going forward, daily runs of this skill are expected to be pure no-ops (account check → no positions to manage → 0/0 entry cap → log a no-op) unless the user explicitly asks to resume options trading.
 - Result: account value $1,331.41. NVDA closed for a realized loss of ~53.8% on the trade; equity leg unaffected (see equity summary for today).
+
+## 2026-08-20 — Agentic account ($1,331.56) — options leg, pure no-op as expected
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- No open options positions (`get_option_positions` returned empty). NVDA's 2026-08-19 stop-loss sale has now settled — cash and buying power both $435.89, `options_value` $0.
+- Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
+- This confirms the wind-down is complete: the options leg has nothing left to manage. Future runs will keep logging this same no-op unless the user asks to resume options trading.
+- Result: account value $1,331.56. No trades this run.

@@ -103,3 +103,29 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - No new buys this run — same designed behavior as 2026-08-18: target already at its upper bound. No screen re-run.
 - Net: a strong day for the equity book — 9 of 12 positions green, several up 3-5% (EOG, ZTS, EIX, CF, THC), only WFC, HON, CHKP slightly red. This gain is the main reason today's account value ($1,332.31) held up despite NVDA's options loss realized this run.
 - **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
+
+## 2026-08-20 — Agentic account ($1,331.56) — fifth run, still at target, 0 new buys
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Context: the options leg is now fully wound down (no positions) and NVDA's 2026-08-19 sale proceeds have settled, raising buying power to $435.89 (from ~$182 pre-settlement). This doesn't change today's outcome — `target_position_count`'s upper bound (12), not cash, is the binding constraint once at target.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 61.82 | +1.28% |
+  | WFC | 89.25 | 85.23 | -4.50% |
+  | MKC | 54.32 | 56.46 | +3.94% |
+  | ZTS | 72.93 | 75.47 | +3.47% |
+  | CF | 118.41 | 127.09 | +7.33% |
+  | TRV | 369.77 | 363.73 | -1.63% |
+  | EOG | 142.77 | 152.97 | +7.14% |
+  | HON | 232.31 | 221.33 | -4.73% |
+  | CHKP | 130.01 | 132.65 | +2.03% |
+  | DECK | 90.24 | 89.44 | -0.89% |
+  | EIX | 71.52 | 74.47 | +4.13% |
+  | THC | 267.07 | 274.71 | +2.86% |
+
+- No new buys this run — same designed behavior as the prior three runs: target already at its upper bound. No screen re-run.
+- Net: a mixed day — CF and EOG led with +7%+ gains, EIX/MKC/ZTS/THC/CHKP/PYPL also green, while WFC and HON gave back ~4.5-4.7% and TRV/DECK dipped slightly. 8 of 12 positions still green overall.
+- **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
