@@ -129,3 +129,28 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - No new buys this run — same designed behavior as the prior three runs: target already at its upper bound. No screen re-run.
 - Net: a mixed day — CF and EOG led with +7%+ gains, EIX/MKC/ZTS/THC/CHKP/PYPL also green, while WFC and HON gave back ~4.5-4.7% and TRV/DECK dipped slightly. 8 of 12 positions still green overall.
 - **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
+
+## 2026-08-21 — Agentic account ($1,331.19) — sixth run, still at target, 0 new buys
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 62.18 | +1.86% |
+  | WFC | 89.25 | 84.51 | -5.31% |
+  | MKC | 54.32 | 55.57 | +2.30% |
+  | ZTS | 72.93 | 76.59 | +5.02% |
+  | CF | 118.41 | 129.59 | +9.44% |
+  | TRV | 369.77 | 366.26 | -0.95% |
+  | EOG | 142.77 | 152.24 | +6.63% |
+  | HON | 232.31 | 219.30 | -5.60% |
+  | CHKP | 130.01 | 129.70 | -0.24% |
+  | DECK | 90.24 | 89.88 | -0.40% |
+  | EIX | 71.52 | 73.61 | +2.92% |
+  | THC | 267.07 | 277.23 | +3.80% |
+
+- No new buys this run — target already at its upper bound (12/12), same as every run since 2026-08-17. No screen re-run.
+- Net: CF now up nearly +9.5% from cost, EOG +6.6%, ZTS +5.0% — the account's biggest winners continue to widen. WFC and HON are the account's weakest spots so far, both down roughly 5-6%, but neither position is large enough (~$70-75 of a $1,331 account) to be a material concern; this skill has no exit mechanism regardless.
+- **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**

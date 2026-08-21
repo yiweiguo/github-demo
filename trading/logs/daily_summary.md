@@ -172,3 +172,11 @@ Full per-symbol reasoning (including candidates screened and rejected) in `tradi
 - Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
 - This confirms the wind-down is complete: the options leg has nothing left to manage. Future runs will keep logging this same no-op unless the user asks to resume options trading.
 - Result: account value $1,331.56. No trades this run.
+
+## 2026-08-21 — Agentic account ($1,331.19) — options leg, pure no-op as expected
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- No open options positions (`get_option_positions` returned empty).
+- Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
+- Same no-op state as 2026-08-20 — nothing for this skill to manage.
+- Result: account value $1,331.19. No trades this run.
