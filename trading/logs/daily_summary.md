@@ -204,3 +204,11 @@ Full per-symbol reasoning (including candidates screened and rejected) in `tradi
 - Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
 - Same no-op state as prior runs.
 - Result: account value $1,326.42. No trades this run.
+
+## 2026-08-27 — Agentic account ($1,318.66) — options leg, pure no-op as expected
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- No open options positions (`get_option_positions` returned empty).
+- Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
+- Same no-op state as prior runs.
+- Result: account value $1,318.66. No trades this run.
