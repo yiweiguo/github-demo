@@ -220,3 +220,15 @@ Full per-symbol reasoning (including candidates screened and rejected) in `tradi
 - Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
 - Same no-op state as prior runs.
 - Result: account value $1,315.55. No trades this run.
+
+## Gap notice: 2026-08-31 through 2026-09-03 runs did not execute
+
+The automating session stalled on an interrupted tool call after the 2026-08-28 run and did not resume until 2026-09-04. Scheduled runs for 2026-08-31, 09-01, 09-02, and 09-03 (all weekdays) never executed — no account data was fetched and no trades were placed. Rather than fabricate historical account values for those dates, this note documents the gap honestly. No corrective action was needed: this skill was already a pure no-op (0 open options positions, entry cap permanently 0) through the entire period, so nothing was missed in terms of trading decisions — only the routine confirmation checks were skipped. Normal daily logging resumes below with the 2026-09-04 run.
+
+## 2026-09-04 — Agentic account ($1,294.34) — options leg, pure no-op as expected
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- No open options positions (`get_option_positions` returned empty).
+- Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
+- First live-confirmed run since the gap. Same no-op state as before.
+- Result: account value $1,294.34. No trades this run.

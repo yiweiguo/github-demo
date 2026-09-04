@@ -280,3 +280,33 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - **Notable move: PYPL dropped -10.45% vs. average cost** (from +1.9% the prior run) — the largest single-day move seen in this portfolio to date. This skill's qualitative judgment only runs at initial purchase time, not on existing holdings, and it has no sell mechanism regardless of price action — so the drop is logged here as an observation, not something this skill can or will act on. If the user wants this position reviewed or trimmed, that would be a separate, explicit, one-off instruction outside this skill.
 - Other moves smaller: CF +7.6%, EIX +4.1%, ZTS +4.8%, CHKP +2.5%, MKC +2.1% led the gainers; DECK, WFC, HON stayed red alongside PYPL.
 - **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
+
+## Gap notice: 2026-08-31 through 2026-09-03 runs did not execute
+
+The automating session stalled on an interrupted tool call after the 2026-08-28 run and did not resume until 2026-09-04. Scheduled runs for 2026-08-31, 09-01, 09-02, and 09-03 never executed — no position or quote data was fetched. Rather than fabricate historical P&L figures for those dates, this note documents the gap honestly. No corrective action was needed: the account was already at its 12-position target with no buys pending, and this skill never sells regardless of price action, so nothing was missed in terms of trading decisions. Normal daily logging resumes below with the 2026-09-04 run.
+
+## 2026-09-04 — Agentic account ($1,294.34) — thirteenth run, still at target, 0 new buys
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 55.44 | -9.17% |
+  | WFC | 89.25 | 89.26 | +0.01% |
+  | MKC | 54.32 | 51.75 | -4.73% |
+  | ZTS | 72.93 | 75.30 | +3.25% |
+  | CF | 118.41 | 133.42 | +12.68% |
+  | TRV | 369.77 | 373.39 | +0.98% |
+  | EOG | 142.77 | 144.55 | +1.25% |
+  | HON | 232.31 | 207.44 | -10.71% |
+  | CHKP | 130.01 | 136.73 | +5.17% |
+  | DECK | 90.24 | 84.93 | -5.88% |
+  | EIX | 71.52 | 55.95 | -21.76% |
+  | THC | 267.07 | 262.17 | -1.84% |
+
+- No new buys this run — target already at its upper bound (12/12). No screen re-run.
+- **Material move during the unobserved gap: EIX is now -21.76% vs. average cost**, a sharp deterioration from the small gain it was showing before 08-31. This lines up with the wildfire-litigation risk explicitly flagged as this position's watch item when it was bought on 2026-08-17 ("the low P/E may partly reflect real, priced-in risk rather than pure mispricing"). No news lookup was done to pin down the exact trigger — this skill has no sell mechanism regardless of cause, so it's logged as an observation. HON also worsened further to -10.71%, and PYPL remains weak at -9.17%.
+- Gainers: CF +12.7% (new high for the position), CHKP +5.2%, ZTS +3.3%. Losers besides EIX/HON/PYPL: MKC -4.7%, DECK -5.9%, THC -1.8%.
+- **Result: 0 new positions opened, 0 sold (this skill never sells, regardless of how a position performs). Portfolio unchanged at 12/12 positions.**
