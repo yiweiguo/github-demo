@@ -254,3 +254,29 @@ Strategy stood up today; see `trading/logs/daily_summary.md`'s 2026-08-16 entry 
 - No new buys this run — target already at its upper bound (12/12). No screen re-run.
 - Net: CF and ZTS both gave back some of their recent gains (from +8.0%/+7.7% to +4.6%/+4.3%) but are still solidly green. THC dipped into the red for the first time (-0.69%). WFC and HON remain the persistent laggards. Only 7 of 12 positions green today.
 - **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
+
+## 2026-08-28 — Agentic account ($1,315.55) — twelfth run, still at target, 0 new buys
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 54.66 | -10.45% |
+  | WFC | 89.25 | 85.73 | -3.94% |
+  | MKC | 54.32 | 55.46 | +2.10% |
+  | ZTS | 72.93 | 76.39 | +4.75% |
+  | CF | 118.41 | 127.40 | +7.60% |
+  | TRV | 369.77 | 369.65 | -0.03% |
+  | EOG | 142.77 | 144.48 | +1.20% |
+  | HON | 232.31 | 218.10 | -6.12% |
+  | CHKP | 130.01 | 133.27 | +2.51% |
+  | DECK | 90.24 | 86.71 | -3.91% |
+  | EIX | 71.52 | 74.46 | +4.11% |
+  | THC | 267.07 | 266.38 | -0.26% |
+
+- No new buys this run — target already at its upper bound (12/12). No screen re-run.
+- **Notable move: PYPL dropped -10.45% vs. average cost** (from +1.9% the prior run) — the largest single-day move seen in this portfolio to date. This skill's qualitative judgment only runs at initial purchase time, not on existing holdings, and it has no sell mechanism regardless of price action — so the drop is logged here as an observation, not something this skill can or will act on. If the user wants this position reviewed or trimmed, that would be a separate, explicit, one-off instruction outside this skill.
+- Other moves smaller: CF +7.6%, EIX +4.1%, ZTS +4.8%, CHKP +2.5%, MKC +2.1% led the gainers; DECK, WFC, HON stayed red alongside PYPL.
+- **Result: 0 new positions opened, 0 sold (this skill never sells). Portfolio unchanged at 12/12 positions.**
