@@ -296,3 +296,11 @@ The automating session stalled on an interrupted tool call after the 2026-08-28 
 - Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
 - Same no-op state as prior runs.
 - Result: account value $1,284.78. No trades this run.
+
+## 2026-09-17 — Agentic account ($1,276.93) — options leg, pure no-op as expected
+
+- Account safety check: OK (agentic_allowed=true, option_level_2)
+- No open options positions (`get_option_positions` returned empty).
+- Entries: 0/0, no screening this cycle (`max_new_trades_per_day` = 0).
+- Same no-op state as prior runs.
+- Result: account value $1,276.93. No trades this run.

@@ -510,3 +510,28 @@ The automating session stalled on an interrupted tool call after the 2026-08-28 
 - No new buys this run — target already at its upper bound (12/12). No screen re-run.
 - **EIX hit another new deepest drawdown at -22.79%** (from -21.95%), still consistent with its wildfire-litigation watch item — this position has now worsened in 5 of the last 6 runs. On the positive side, **HON improved meaningfully to -10.96%** (from -13.56%) and MKC eased slightly to -7.32%. DECK held roughly flat at -13.20%. CF eased further to +12.74%.
 - **Result: 0 new positions opened, 0 sold (this skill never sells, regardless of how a position performs). Portfolio unchanged at 12/12 positions.**
+
+## 2026-09-17 — Agentic account ($1,276.93) — twenty-second run, still at target, 0 new buys
+
+- Account safety check: OK (agentic_allowed=true)
+- Confirmed all 12 target positions still held via `get_equity_positions`: PYPL, WFC, MKC, ZTS, CF, TRV, EOG, HON, CHKP, DECK, EIX, THC.
+- Per-symbol P&L vs. average buy price (fresh quotes this run):
+
+  | Symbol | Avg cost | Last | P&L % |
+  |---|---|---|---|
+  | PYPL | 61.04 | 52.90 | -13.34% |
+  | WFC | 89.25 | 85.97 | -3.68% |
+  | MKC | 54.32 | 50.17 | -7.65% |
+  | ZTS | 72.93 | 72.86 | -0.10% |
+  | CF | 118.41 | 132.95 | +12.27% |
+  | TRV | 369.77 | 376.50 | +1.82% |
+  | EOG | 142.77 | 144.62 | +1.29% |
+  | HON | 232.31 | 206.77 | -10.99% |
+  | CHKP | 130.01 | 135.50 | +4.22% |
+  | DECK | 90.24 | 77.85 | -13.73% |
+  | EIX | 71.52 | 55.00 | -23.10% |
+  | THC | 267.07 | 261.49 | -2.09% |
+
+- No new buys this run — target already at its upper bound (12/12). No screen re-run.
+- **EIX hit yet another new deepest drawdown at -23.10%** — it has now worsened in 6 of the last 7 runs, still consistent with its wildfire-litigation watch item flagged at purchase. This is the account's clearest sustained problem position. PYPL and DECK both edged to new lows too (-13.34%, -13.73%). WFC turned newly weak at -3.68% (was +0.19% two runs ago). CF remains the anchor gainer at +12.27%.
+- **Result: 0 new positions opened, 0 sold (this skill never sells, regardless of how a position performs). Portfolio unchanged at 12/12 positions.**
